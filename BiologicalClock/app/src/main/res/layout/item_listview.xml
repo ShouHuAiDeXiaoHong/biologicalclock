@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+       android:gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/item"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round1"
+        android:layout_width="93dp"
+        android:layout_height="93dp">
+        <ImageView
+            android:visibility="visible"
+            android:id="@+id/item_img"
+            android:src="@mipmap/ic_launcher"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+        <TextView
+            android:visibility="gone"
+            android:textSize="16sp"
+            android:textColor="#3f8eca"
+            android:id="@+id/item_text"
+            android:text="睡眠"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:visibility="gone"
+        android:id="@+id/item_foot"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"/>
+</LinearLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设置圆角，红色的线-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/green" />
+    <corners android:topLeftRadius="55dp"
+        android:topRightRadius="55dp"
+        android:bottomRightRadius="55dp"
+        android:bottomLeftRadius="55dp"/>
+</shape>
