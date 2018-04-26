@@ -39,6 +39,7 @@ public class BiologicalViewGroup extends RelativeLayout {
     private ImageView imgs;
     private ListView listView;
     private boolean canAdd;
+    private MyListView myListView;
 
     public BiologicalViewGroup(Context context) {
         super(context);
@@ -58,6 +59,7 @@ public class BiologicalViewGroup extends RelativeLayout {
         List<Apiece> piedata = new ArrayList<Apiece>();
         pie.AnalyticData(piedata);
         listView = (ListView) view.findViewById(R.id.listview);
+        myListView = (MyListView) view.findViewById(R.id.mylistview);
         list = new ArrayList<>();
         list.add(new Apiece(0,0,1));
         list.add(new Apiece(0,0,2));
@@ -70,6 +72,7 @@ public class BiologicalViewGroup extends RelativeLayout {
         list.add(new Apiece(0,0,9));
         final ListViewAdapter adapter = new ListViewAdapter(list,context);
         listView.setAdapter(adapter);
+        myListView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
