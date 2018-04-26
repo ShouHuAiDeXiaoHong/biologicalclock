@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,6 +27,8 @@ import java.util.List;
  */
 
 public class BiologicalViewGroup extends RelativeLayout {
+
+    private String TAG =  BiologicalViewGroup.class.getName();
 
     private CircleMenu pie;
     private LinearLayout linearLayout;
@@ -277,13 +280,13 @@ public class BiologicalViewGroup extends RelativeLayout {
                 //  float y11 = ((event.getY()-100 ) - (height1 - pieHeight1) / 2);
                 float x11 = event.getX()-550 + pieHeight1;
                 float y11 = event.getY();
-                System.out.println("--xxx:"+x11+"--yyy:"+y11);
+                Log.d(TAG,"--xxx:"+x11+"--yyy:"+y11);
                 if (pie.isOnBigCircle(x11,y11)) {
-                    System.out.println("--调用了1");
+                    Log.d(TAG,"--调用了1");
                     if(!pie.isOnSmallCircle(x11,y11)){
-                        System.out.println("--调用了2");
+                        Log.d(TAG,"--调用了2");
                         if(flagLong){
-                            System.out.println("--调用了3");
+                            Log.d(TAG,"--调用了3");
                             pie.setPieRealItem();
                         }
 

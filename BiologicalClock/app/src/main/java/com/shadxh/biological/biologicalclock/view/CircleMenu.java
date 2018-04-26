@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import java.util.List;
 
 @SuppressLint("DrawAllocation")
 public class CircleMenu extends View {
+
+    private String TAG = CircleMenu.class.getName();
 
     private Paint mPaint;//画笔对象
     private int width;//控件的宽
@@ -524,23 +527,25 @@ public class CircleMenu extends View {
             }
 
 
-            System.out.println("--end:"+endAngle+"--start:"+startAngle);
-            System.out.println("--end1:"+endAngle1+"--start1:"+startAngle1);
+            Log.d(TAG,"end:"+endAngle+",start:"+startAngle);
+            Log.d(TAG,"end1:"+endAngle1+",start1:"+startAngle1);
+
             if(startAngle1>endAngle1){//此时跨过零点了
                 if(startAngle>endAngle){//操作的那个扇形也跨过零点了
                     noDoublication = false;
-                    System.out.println("--两个都跨零点了");
+                    Log.d(TAG,"两个都跨零点了");
                     break;
                 }else {
                     if((startAngle>=0&&startAngle<endAngle1)||(endAngle>startAngle1&&endAngle<=360)){
                         noDoublication = false;
-                        System.out.println("--上一个跨零点，但是操作的没跨零点");
+                        Log.d(TAG,"上一个跨零点，但是操作的没跨零点");
                         break;
                     }
                 }
             }else {
                 if((startAngle>startAngle1&&startAngle<endAngle1)||(endAngle>startAngle1&&endAngle<endAngle1)){
-                    System.out.println("--开始或者结束，在其它扇形里面了end:"+endAngle+"-start:"+startAngle+"-end1:"+endAngle1+"-start1:"+startAngle1);
+
+                    Log.d(TAG,"--开始或者结束，在其它扇形里面了end:"+endAngle+"-start:"+startAngle+"-end1:"+endAngle1+"-start1:"+startAngle1);
                     noDoublication = false;
                     break;
                 }
@@ -548,7 +553,7 @@ public class CircleMenu extends View {
 
                 if(startAngle<endAngle){
                     if((startAngle>=startAngle1&&endAngle<=endAngle1)||(startAngle1>=startAngle&&endAngle1<=endAngle)){
-                        System.out.println("--包含了");
+                        Log.d(TAG,"包含了");
                         noDoublication = false;
                         break;
                     }
@@ -682,7 +687,7 @@ public class CircleMenu extends View {
                         isMove = false;//这个值是用来判断是否触发长按时间了，因为长按和触摸改变扇形的大小是冲突的，所以要用这个值来区分
                         addMoveDegress=0;//手指移动的轨迹的夹角
                         onRing = false;
-                        System.out.println("--move:"+isMove+"--add:"+isAddOrReduce);
+                        Log.d(TAG,"--move:"+isMove+"--add:"+isAddOrReduce);
                         if(!isMove&&!isAddOrReduce){
                             int i = checkClickWhere(mLastMotionX, mLastMotionY);
                             if(i!= Integer.MAX_VALUE){
