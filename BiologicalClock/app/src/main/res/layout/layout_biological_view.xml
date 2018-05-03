@@ -29,24 +29,13 @@
             android:layout_width="93dp"
             android:layout_height="wrap_content">
 
-            <com.shadxh.biological.biologicalclock.view.MyListView
-                android:id="@+id/mylistview"
+            <android.support.v7.widget.RecyclerView
+                android:visibility="visible"
+                android:id="@+id/recyvlerview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:divider="@null"
-                android:fadeScrollbars="false"
-                android:scrollbars="none"
-                ></com.shadxh.biological.biologicalclock.view.MyListView>
-
-            <ListView
-                android:visibility="gone"
-                android:id="@+id/listview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:divider="@null"
-                android:fadeScrollbars="false"
-                android:scrollbars="none">
-            </ListView>
+                >
+            </android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout

@@ -2,6 +2,8 @@ package com.shadxh.biological.biologicalclock.view;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -9,14 +11,12 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.shadxh.biological.biologicalclock.R;
-import com.shadxh.biological.biologicalclock.adapter.ListViewAdapter;
+import com.shadxh.biological.biologicalclock.adapter.RecyclerviewAdapter;
 import com.shadxh.biological.biologicalclock.bean.Apiece;
 
 import java.util.ArrayList;
@@ -40,9 +40,10 @@ public class BiologicalViewGroup extends RelativeLayout {
     private int id;
     private float oldSweepAngle;
     private ImageView imgs;
-    private ListView listView;
+    //private ListView listView;
     private boolean canAdd;
-    private MyListView myListView;
+    private RecyclerView recyclerView;
+    // private MyListView myListView;
 
     public BiologicalViewGroup(Context context) {
         super(context);
@@ -61,8 +62,11 @@ public class BiologicalViewGroup extends RelativeLayout {
         imgs = (ImageView) view.findViewById(R.id.main_img);
         List<Apiece> piedata = new ArrayList<Apiece>();
         pie.AnalyticData(piedata);
-        listView = (ListView) view.findViewById(R.id.listview);
-        myListView = (MyListView) view.findViewById(R.id.mylistview);
+      //  listView = (ListView) view.findViewById(R.id.listview);
+      //  myListView = (MyListView) view.findViewById(R.id.mylistview);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyvlerview);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(manager);
         list = new ArrayList<>();
         list.add(new Apiece(0,0,1));
         list.add(new Apiece(0,0,2));
@@ -73,22 +77,24 @@ public class BiologicalViewGroup extends RelativeLayout {
         list.add(new Apiece(0,0,7));
         list.add(new Apiece(0,0,8));
         list.add(new Apiece(0,0,9));
-        final ListViewAdapter adapter = new ListViewAdapter(list,context);
-        listView.setAdapter(adapter);
-        myListView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Apiece apiece = list.get(position);
-                if(apiece.isPic()){
-                    apiece.setPic(false);
-                }else {
-                    apiece.setPic(true);
-                }
-                adapter.notifyDataSetChanged();
-            }
-        });
+        RecyclerviewAdapter recyclerviewAdapter = new RecyclerviewAdapter(list, getContext());
+        recyclerView.setAdapter(recyclerviewAdapter);
+        //  final ListViewAdapter adapter = new ListViewAdapter(list,context);
+       // listView.setAdapter(adapter);
+       // myListView.setAdapter(adapter);
+//      //  listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                Apiece apiece = list.get(position);
+//                if(apiece.isPic()){
+//                    apiece.setPic(false);
+//                }else {
+//                    apiece.setPic(true);
+//                }
+//                adapter.notifyDataSetChanged();
+//            }
+//        });
 
         pie.setOnItemLongClickListener(new CircleMenu.OnItemLongClickListener() {
             @Override
@@ -97,26 +103,24 @@ public class BiologicalViewGroup extends RelativeLayout {
                 id = apiece.getId();
                 oldSweepAngle = apiece.getSweepAngle();
                 pie.removeItem(apiece);
-
             }
         });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        recyclerviewAdapter.setOnItemLongClickListner(new RecyclerviewAdapter.onItemLongClickListner() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemLongClick(int position, View view) {
                 setLayout(linearLayout,view.getX(),view.getY());
                 linearLayout.setVisibility(View.VISIBLE);
                 setBackground(position+1);
                 items = position+1;
                 flag = true;
                 canAdd = true;
-                return false;
             }
         });
 
 
 
-        listView.setOnTouchListener(new View.OnTouchListener() {
+        recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 int action = event.getAction();
