@@ -267,9 +267,8 @@ public class BiologicalViewGroup extends RelativeLayout {
         wm.getDefaultDisplay().getMetrics(outMetrics);
         return outMetrics.heightPixels;
     }
-
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean onInterceptTouchEvent(MotionEvent event) {
 
         int action = event.getAction();
 
@@ -302,13 +301,14 @@ public class BiologicalViewGroup extends RelativeLayout {
                 break;
 
             case MotionEvent.ACTION_MOVE:
+
+                System.out.println("--移动");
                 if(flagLong){
                     /**
                      * 获得的点的x和y轴要转换成控件中的x和y轴
                      *因为x为负数（应该是居右边显示的原因） 经过测试 刚好加上环形菜单的宽度就可以转换成 控件的x左边
                      * y的坐标获取是带着状态栏的，所以要减去
                      */
-
                     float x = event.getX()-550;//这550是左边控件的一半（因为就露出了一半）
                     //               float y = event.getY()-50;//这50应该是通知栏的高度
                     float y = event.getY();
@@ -342,5 +342,7 @@ public class BiologicalViewGroup extends RelativeLayout {
 
         return super.onTouchEvent(event);
     }
+
+
 
 }

@@ -16,7 +16,7 @@ import java.util.List;
  * Created by PC on 2018/4/26.
  */
 
-public class RecyclerviewAdapter extends RecyclerView.Adapter implements View.OnClickListener {
+public class RecyclerviewAdapter extends RecyclerView.Adapter implements View.OnClickListener, View.OnLongClickListener {
 
     private List<Apiece> datas;
     private Context context;
@@ -39,6 +39,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter implements View.On
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_listview, parent, false);
         view.setOnClickListener(this);
+        view.setOnLongClickListener(this);
         return new ViewHolder(view);
     }
 
@@ -100,6 +101,17 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter implements View.On
 
     }
 
+    @Override
+    public boolean onLongClick(View view) {
+
+        int position = (int) view.getTag();
+        if(onItemLongClickListner!=null){
+            onItemLongClickListner.onItemLongClick(position,view);
+        }
+
+        return false;
+    }
+
     public interface onItemLongClickListner{
 
         void onItemLongClick(int position ,View view);
@@ -115,10 +127,10 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter implements View.On
     @Override
     public void onClick(View view) {
 
-        int position = (int) view.getTag();
-        if(onItemLongClickListner!=null){
-            onItemLongClickListner.onItemLongClick(position,view);
-        }
+//        int position = (int) view.getTag();
+//        if(onItemLongClickListner!=null){
+//            onItemLongClickListner.onItemLongClick(position,view);
+//        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

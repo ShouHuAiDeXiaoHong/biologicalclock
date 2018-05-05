@@ -271,7 +271,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case MotionEvent.ACTION_MOVE:
+                System.out.println("--移动");
                 if(flagLong){
+
                     /**
                      * 获得的点的x和y轴要转换成控件中的x和y轴
                      *因为x为负数（应该是居右边显示的原因） 经过测试 刚好加上环形菜单的宽度就可以转换成 控件的x左边
